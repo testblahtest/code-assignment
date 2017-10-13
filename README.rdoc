@@ -1,28 +1,35 @@
-== README
+Drover Assignment - Insurance Calculator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Drover is a vehicle rental market place where drivers can rent a vehicle from an owner, Drover facilitates these rentals.
+You should know this already!
 
-Things you may want to cover:
+Drover needs to build a calculator to help them price their 2 new insurance products. Described below
 
-* Ruby version
+Driver insurance is issued to drivers while they rent the vehicle.
+The start date is when the vehicle is picked up and the end date is when the vehicle is dropped off.
+The price of the vehicle is the number of days on cover (excluding the drop off date which is free) -
+mulitplied by the daily price which is recorded in the associated vehicle
+eg. a rental from 1st Oct to 8th Oct is 7 days, at a rate of £58.50 gives a total of 409.5
 
-* System dependencies
+Vehicle owner insurance is issued to vehicle owners, but they only pay for all days the vehicle is NOT on rent by drivers
+This is to cover periods the vehicle is waiting to be rented and sitting in the parking lot
+Vehicle insurance pricing includes the end date (unlike driver insurance)
+eg. a vehicle insurance from 1st Oct to 8th Oct is 8 days of cover, at a rate of £1, gives a total of £8
+if the vehicle is rented from 2nd Oct to 5th Oct then the owner pays for 3 less days, giving a total of £5
 
-* Configuration
+Got it?? There are also some tests in the below files which should help make more sense of this
+spec/models/driver_insurance_spec.rb
+spec/models/vehicle_owner_insurance_spec.rb
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Drover brought in a new freelance developer to work on this functionality.
+Unfortunately this developer has written some dubious code and mysteriously disappeared.
+We need the code to be fixed and completed, below is a summary of the remaining work
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Driver Insurance Spec
+The driver insurance spec passes but the functionality looks wrong and code need refactoring
+The third driver insurance test is only outlines and neither test code or functionality is in place
+
+Fleet Insurance Spec
+
+
