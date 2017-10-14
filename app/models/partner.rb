@@ -16,4 +16,9 @@ class Partner < ActiveRecord::Base
   def total_vehicle_owner_insurance_charges_pounds
 
   end
+
+  def total_vehicle_owner_insurance_v2_charges_pounds
+
+  end
+
 end

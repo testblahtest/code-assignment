@@ -36,7 +36,7 @@ RSpec.describe VehicleOwnerInsurance, type: :model do
     # Vehicle Owner Insurance 2 is charged for 3 days at the higher +10% rate
     # Vehicle Owner Insurance 3 is charged for 3 days at the higher +10% rate and 3 days at the standard rate
 
-    expect(owner.total_vehicle_owner_insurance_charges_pounds).to eq 4.0 * 1.1 + 3.0 * 1.0
+    expect(owner.total_vehicle_owner_insurance_v2_charges_pounds).to eq 4.0 * 1.1 + 3.0 * 1.0
   end
 
 end
