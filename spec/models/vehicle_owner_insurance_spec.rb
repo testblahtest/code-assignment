@@ -33,8 +33,8 @@ RSpec.describe VehicleOwnerInsurance, type: :model do
     driver_insurance = DriverInsurance.create(start_date: Date.today, end_date: Date.today + 11.days, vehicle: vehicle1)
 
     # Vehicle Owner Insurance 1 has no charges as all days are charged for on the driver insurance
-    # Vehicle Owner Insurance 2 is charged for 3 days at the higher +10% rate
-    # Vehicle Owner Insurance 3 is charged for 3 days at the higher +10% rate and 3 days at the standard rate
+    # Vehicle Owner Insurance 2 is charged for 2 days at the higher +10% rate
+    # Vehicle Owner Insurance 3 is charged for 2 days at the higher +10% rate and 3 days at the standard rate
 
     expect(owner.total_vehicle_owner_insurance_v2_charges_pounds).to eq 4.0 * 1.1 + 3.0 * 1.0
   end
