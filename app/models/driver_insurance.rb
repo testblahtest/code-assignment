@@ -5,7 +5,7 @@
 # eg. a rental from 1st Oct to 8th Oct is 7 days, at a rate of £58.50 gives a total of 409.5
 
 # NOTE - The end date may equal the start date of another insurance for the same vehicle (two bookings back to back),
-# however you can assume that they will not overlap further than this
+# however you can assume that they will not overlap further than this.
 
 class DriverInsurance < ActiveRecord::Base
 
