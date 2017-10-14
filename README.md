@@ -27,8 +27,8 @@ You will need to complete the implementation of the method total_days_charged_fo
 Please consider code simplicity, readability and maintainability when refactoring this code.
 4. The fourth driver insurance test is only outlined and neither test code or functionality is in place, could you write both.
 
-**Vehicle Owner Insurance Spec**
+**Vehicle Owner Insurance Spec (optional - please leave if there is not time)**
 
 5. The second vehicle owner insurance spec passes but the functionality is clearly wrong. Could you fix the implementation
-6. (bonus points - please leave if there is not time) We have recently been experimenting with a new pricing system for vehicle owner insurnace, version2 (described in the test)
+6. We have recently been experimenting with a new pricing system for vehicle owner insurnace, version2 (described in the test)
 The third fleet insurance spec tests for this new pricing, but the functionality needs completing
