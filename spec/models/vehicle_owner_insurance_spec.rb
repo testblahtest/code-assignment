@@ -20,7 +20,23 @@ RSpec.describe VehicleOwnerInsurance, type: :model do
     # On any day when the number of vehicles (per owner) on cover (whether they are charged for or not) is 3 or more the price per vehicle
     # increases by 10%. Eg 3 vehicle charged for for 3 days at a standard rate of £1 per vehicle will cost £9.90
 
-    
+    owner = Partner.create
+
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle2 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle3 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+
+    vehicle_owner_insurance1 = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
+    vehicle_owner_insurance2 = VehicleOwnerInsurance.create(start_date: Date.today + 3.days, end_date: Date.today + 4.days, vehicle: vehicle2)
+    vehicle_owner_insurance3 = VehicleOwnerInsurance.create(start_date: Date.today + 3.days, end_date: Date.today + 7.days, vehicle: vehicle3)
+
+    driver_insurance = DriverInsurance.create(start_date: Date.today, end_date: Date.today + 11.days, vehicle: vehicle1)
+
+    # Vehicle Owner Insurance 1 has no charges as all days are charged for on the driver insurance
+    # Vehicle Owner Insurance 2 is charged for 3 days at the higher +10% rate
+    # Vehicle Owner Insurance 3 is charged for 3 days at the higher +10% rate and 3 days at the standard rate
+
+    expect(owner.total_vehicle_owner_insurance_charges_pounds).to eq 4.0 * 1.1 + 3.0 * 1.0
   end
 
 end

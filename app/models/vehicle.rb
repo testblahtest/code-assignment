@@ -5,5 +5,5 @@ class Vehicle < ActiveRecord::Base
 
   has_many :driver_insurances
   has_many :vehicle_owner_insurances
-  belongs_to :owner
+  belongs_to :owner, class_name: "Partner"
 end

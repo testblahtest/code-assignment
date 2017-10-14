@@ -28,6 +28,6 @@ Please consider code simplicity, readability and maintainability when refactorin
 
 Vehicle Owner Insurance Spec
 5. The second vehicle owner insurance spec passes but the functionality is clearly wrong. Could you fix the implementation
-6. We have recently been experimenting with a new pricing system for vehicle owner insurnace, version2 (described in the test)
-The third fleet insurance spec tests for this new pricing but the functionality needs completing (bonus points - please leave if there is not time)
+6. (bonus points - please leave if there is not time) We have recently been experimenting with a new pricing system for vehicle owner insurnace, version2 (described in the test)
+The third fleet insurance spec tests for this new pricing, but the functionality needs completing
 
