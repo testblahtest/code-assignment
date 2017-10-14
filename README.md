@@ -19,6 +19,7 @@ We need the code to be fixed and completed, below is a summary of the remaining 
 
 
 **Driver Insurance Spec**
+
 1. Make the test "calculates the number of days to charge for all the insurance for one driver" pass.
 You will need to complete the implementation of the method total_insurance_days in Partner
 2. The third test passes but the functionality looks wrong, could you correct the problem here
@@ -27,7 +28,7 @@ Please consider code simplicity, readability and maintainability when refactorin
 4. The fourth driver insurance test is only outlined and neither test code or functionality is in place, could you write both.
 
 **Vehicle Owner Insurance Spec**
+
 5. The second vehicle owner insurance spec passes but the functionality is clearly wrong. Could you fix the implementation
 6. (bonus points - please leave if there is not time) We have recently been experimenting with a new pricing system for vehicle owner insurnace, version2 (described in the test)
 The third fleet insurance spec tests for this new pricing, but the functionality needs completing
-
