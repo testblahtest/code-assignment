@@ -5,7 +5,7 @@ class Partner < ActiveRecord::Base
   has_many :driver_insurances
   has_many :owned_vehicles, foreign_key: "owner"
 
-  def total_driver_insurance_days
+  def total_days_charged_for_driver_insurance
 
   end
 
