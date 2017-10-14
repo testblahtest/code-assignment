@@ -1,21 +1,12 @@
 Drover Assignment - Insurance Calculator
 
 Drover is a vehicle rental market place where drivers can rent a vehicle from an owner, Drover facilitates these rentals.
-You should know this already!
+You should know this already!!
 
-Drover needs to build a calculator to help them price their 2 new insurance products. Described below
-
-Driver insurance is issued to drivers while they rent the vehicle.
-The start date is when the vehicle is picked up and the end date is when the vehicle is dropped off.
-The price of the vehicle is the number of days on cover (excluding the drop off date which is free) -
-mulitplied by the daily price which is recorded in the associated vehicle
-eg. a rental from 1st Oct to 8th Oct is 7 days, at a rate of £58.50 gives a total of 409.5
-
-Vehicle owner insurance is issued to vehicle owners, but they only pay for all days the vehicle is NOT on rent by drivers
-This is to cover periods the vehicle is waiting to be rented and sitting in the parking lot
-Vehicle insurance pricing includes the end date (unlike driver insurance)
-eg. a vehicle insurance from 1st Oct to 8th Oct is 8 days of cover, at a rate of £1, gives a total of £8
-if the vehicle is rented from 2nd Oct to 5th Oct then the owner pays for 3 less days, giving a total of £5
+Drover needs to build a calculator to help them price their 2 new insurance products.
+1. Driver Insurance
+2. Vehicle Owner Insurance
+You can read about these two products in the notes found in their respective models.
 
 Got it?? There are also some tests in the below files which should help make more sense of this
 spec/models/driver_insurance_spec.rb
@@ -23,13 +14,20 @@ spec/models/vehicle_owner_insurance_spec.rb
 
 Drover brought in a new freelance developer to work on this functionality.
 Unfortunately this developer has written some dubious code and mysteriously disappeared.
+Note - The tests were written by us and you can assume are accurate
 We need the code to be fixed and completed, below is a summary of the remaining work
 
 
 Driver Insurance Spec
-The driver insurance spec passes but the functionality looks wrong and code need refactoring
-The third driver insurance test is only outlines and neither test code or functionality is in place
+1. Make the test "calculates the number of days to charge for all the insurance for one driver" pass.
+You will need to complete the implementation of the method total_insurance_days in Partner
+2. The third test passes but the functionality looks wrong, could you correct the problem here
+3. The code related to Driver Insurance could do with refactoring.
+Please consider code simplicity, readability and maintainability when refactoring this code.
+4. The fourth driver insurance test is only outlined and neither test code or functionality is in place, could you write both.
 
-Fleet Insurance Spec
-
+Vehicle Owner Insurance Spec
+5. The second vehicle owner insurance spec passes but the functionality is clearly wrong. Could you fix the implementation
+6. We have recently been experimenting with a new pricing system for vehicle owner insurnace, version2 (described in the test)
+The third fleet insurance spec tests for this new pricing but the functionality needs completing (bonus points - please leave if there is not time)
 
