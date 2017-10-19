@@ -14,7 +14,7 @@ spec/models/vehicle_owner_insurance_spec.rb
 
 Drover brought in a new freelance developer to work on this functionality.
 Unfortunately this developer has written some dubious code and mysteriously disappeared.
-Note - The tests were written by us and you can assume are accurate
+Note - The tests were written by us and you can assume are accurate.
 We need the code to be fixed and completed, below is a summary of the remaining work.
 **Please push the repo to your GitHub account and share the link with us**
 
