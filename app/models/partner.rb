@@ -13,10 +13,6 @@ class Partner < ActiveRecord::Base
     (driver_insurance.end_date - driver_insurance.start_date).to_f * 58.50
   end
 
-  def total_vehicle_owner_insurance_charges_pounds
-
-  end
-
   def total_vehicle_owner_insurance_v2_charges_pounds
 
   end
