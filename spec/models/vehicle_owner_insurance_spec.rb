@@ -2,41 +2,73 @@ require 'rails_helper'
 
 RSpec.describe VehicleOwnerInsurance, type: :model do
 
-  it "calculates the days covered (only covered not charged for)" do
+  it "should not accept end date before start date" do
+    vehicle_owner_insurance = VehicleOwnerInsurance.create(end_date: Date.today, start_date: Date.today + 1.week)
+    expect(vehicle_owner_insurance).to_not be_valid
+  end
+
+  it "should accept start date before end date" do
+    vehicle_owner_insurance = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 1.week)
+    expect(vehicle_owner_insurance).to be_valid
+  end
+
+  it "calculates the days covered" do
     vehicle_owner_insurance = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days)
     expect(vehicle_owner_insurance.total_days_covered).to eq 8
   end
 
-  it "calculates the total charge for a vehicle owner insurance (excludes any day charged for on the driver insurance for that vehicle)" do
-    vehicle = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.1 )
-    vehicle_owner_insurance = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle)
-    driver_insurance = DriverInsurance.create(start_date: Date.today + 4.days, end_date: Date.today + 11.days, vehicle: vehicle)
-
-    expect(vehicle_owner_insurance.total_charge_pounds).to eq 4.4
+  it "calculates the days charged (vehicle just sat there sad and alone)" do
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.5)
+    vehicle_owner_insurance = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
+    expect(vehicle_owner_insurance.total_charge_pounds).to eq 8*1.5
   end
 
-  it "calculates the total charges for the owner using the version2 calculations" do
-    # Version 2 of the vehicle owner pricing has been devised
-    # On any day when the number of vehicles (per owner) on cover (whether they are charged for or not) is 3 or more the price per vehicle
-    # increases by 10%. Eg 3 vehicle charged for for 3 days at a standard rate of £1 per vehicle will cost £9.90
-
-    owner = Partner.create
-
-    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
-    vehicle2 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
-    vehicle3 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
-
+  it "calculates days covered for insurance for 1 vehicle that has been rented just a few days" do
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0)
     vehicle_owner_insurance1 = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
-    vehicle_owner_insurance2 = VehicleOwnerInsurance.create(start_date: Date.today + 3.days, end_date: Date.today + 4.days, vehicle: vehicle2)
-    vehicle_owner_insurance3 = VehicleOwnerInsurance.create(start_date: Date.today + 3.days, end_date: Date.today + 7.days, vehicle: vehicle3)
+    driver_insurance = DriverInsurance.create(start_date: Date.today, end_date: Date.today + 3.days, vehicle: vehicle1)
+    expect(vehicle_owner_insurance1.total_days_charged_for).to eq 5
+  end
 
+  it "calculates days charged for insurance for 1 vehicle that has been rented just a few days" do
+    owner = Partner.create(name: "Willy")
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 2, owner: owner)
+    vehicle_owner_insurance1 = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
+    driver_insurance = DriverInsurance.create(start_date: Date.today+2.days, end_date: Date.today + 5.days, vehicle: vehicle1)
+    expect(vehicle_owner_insurance1.total_charge_pounds).to eq 5*2
+  end
+
+  it "calculates days covered by insurance for 1 vehicle that has been rented the whole time" do
+    owner = Partner.create(name: "Yamata Paru")
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle_owner_insurance1 = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
     driver_insurance = DriverInsurance.create(start_date: Date.today, end_date: Date.today + 11.days, vehicle: vehicle1)
+    expect(vehicle_owner_insurance1.total_days_charged_for).to eq 0
+  end
 
-    # Vehicle Owner Insurance 1 has no charges as all days are charged for on the driver insurance
-    # Vehicle Owner Insurance 2 is charged for 2 days at the higher +10% rate
-    # Vehicle Owner Insurance 3 is charged for 2 days at the higher +10% rate and 3 days at the standard rate
 
-    expect(owner.total_vehicle_owner_insurance_v2_charges_pounds).to eq 4.0 * 1.1 + 3.0 * 1.0
+  it "see if we should up the fee on a particular day" do
+    owner = Partner.create(name: "Haifan Fan")
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle_owner_insurance1 = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
+
+    vehicle2 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle_owner_insurance2 = VehicleOwnerInsurance.create(start_date: Date.today+6.days, end_date: Date.today + 10.days, vehicle: vehicle2)
+    expect(vehicle_owner_insurance1.vehicle.owner.increase_rate_on(Date.today+6.days)).to eq false
+  end
+
+  it "we should up the fee on a particular day" do
+    owner = Partner.create(name: "Vinny Spatulla")
+    vehicle1 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle_owner_insurance1 = VehicleOwnerInsurance.create(start_date: Date.today, end_date: Date.today + 7.days, vehicle: vehicle1)
+
+    vehicle2 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle_owner_insurance2 = VehicleOwnerInsurance.create(start_date: Date.today+6.days, end_date: Date.today + 10.days, vehicle: vehicle2)
+
+    vehicle3 = Vehicle.create(vehicle_owner_insurance_daily_rate_pounds: 1.0, owner: owner)
+    vehicle_owner_insurance3 = VehicleOwnerInsurance.create(start_date: Date.today+3.days, end_date: Date.today + 7.days, vehicle: vehicle3)
+
+    expect(vehicle_owner_insurance1.vehicle.owner.increase_rate_on(Date.today+6.days)).to eq true
   end
 
 end
